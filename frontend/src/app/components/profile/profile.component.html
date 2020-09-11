@@ -1,0 +1,173 @@
+<div class="container">
+  <h4 class="text-center border-bottom">Profile</h4>
+
+  <form #updateForm="ngForm" (ngSubmit)="updateForm.valid && onUpdateUser()">
+    <input
+      type="hidden"
+      name="id"
+      #id="ngModel"
+      [(ngModel)]="userService.user.id"
+    />
+
+    <div class="form-group row">
+      <label class="col">Full name:</label>
+      <input
+        type="text"
+        #fullName="ngModel"
+        [(ngModel)]="userService.user.fullName"
+        name="fullName"
+        placeholder="Full Name"
+        required
+        class="form-control col"
+        [pattern]="fullNameRegex"
+      />
+    </div>
+    <div *ngIf="updateForm.submitted && !fullName.valid" class="text-right">
+      <label *ngIf="fullName.errors.required" class="text-danger"
+        >Full name is required.</label
+      >
+      <label *ngIf="fullName.errors.pattern" class="text-danger"
+        >Invalid full name.</label
+      >
+    </div>
+
+    <div class="form-group row">
+      <label class="col">Username:</label>
+      <input
+        type="text"
+        #username="ngModel"
+        [(ngModel)]="userService.user.username"
+        name="username"
+        class="form-control col"
+        disabled
+      />
+    </div>
+
+    <div class="form-group row">
+      <label class="col">Email:</label>
+      <input
+        type="text"
+        #email="ngModel"
+        [(ngModel)]="userService.user.email"
+        name="email"
+        class="form-control col"
+        disabled
+      />
+    </div>
+
+    <div class="text-center">
+      <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+  </form>
+
+  <div class="mt-2">
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <form
+    #changePasswordForm="ngForm"
+    (ngSubmit)="changePasswordForm.valid && onChangePassword()"
+  >
+    <input
+      type="hidden"
+      #email="ngModel"
+      [(ngModel)]="userService.user.email"
+      name="email"
+    />
+
+    <div class="form-group row">
+      <label class="col">Current password:</label>
+      <input
+        type="password"
+        #password="ngModel"
+        [(ngModel)]="userService.user.password"
+        name="password"
+        placeholder="Password"
+        required
+        class="form-control col"
+        minlength="6"
+      />
+    </div>
+    <div
+      *ngIf="changePasswordForm.submitted && !password.valid"
+      class="text-right"
+    >
+      <label *ngIf="password.errors.required" class="text-danger"
+        >Current password is required.</label
+      >
+      <label *ngIf="password.errors.minlength" class="text-danger"
+        >Current password must be at least 6 characters.</label
+      >
+    </div>
+
+    <div class="form-group row">
+      <label class="col">New password:</label>
+      <input
+        type="password"
+        #newPass="ngModel"
+        [(ngModel)]="newPassword"
+        name="newPassword"
+        placeholder="New Password"
+        required
+        class="form-control col"
+        minlength="6"
+        [pattern]="passwordRegex"
+      />
+    </div>
+    <div
+      *ngIf="changePasswordForm.submitted && !newPass.valid"
+      class="text-right"
+    >
+      <label *ngIf="newPass.errors.required" class="text-danger"
+        >New password is required.</label
+      >
+      <label *ngIf="newPass.errors.minlength" class="text-danger"
+        >New password must be at least 6 characters.</label
+      >
+      <label *ngIf="newPass.errors.pattern" class="text-danger"
+        >Password must contain atleast 1 upper case, 1 lower case, and a
+        number</label
+      >
+    </div>
+
+    <div class="form-group row">
+      <label class="col">Confirm new password:</label>
+      <input
+        type="password"
+        #confirmPass="ngModel"
+        [(ngModel)]="confirmNewPassword"
+        name="confirmNewPassword"
+        placeholder="Confirm New Password"
+        required
+        class="form-control col"
+        minlength="6"
+        [pattern]="passwordRegex"
+      />
+    </div>
+    <div
+      *ngIf="changePasswordForm.submitted && !confirmPass.valid"
+      class="text-right"
+    >
+      <label *ngIf="confirmPass.errors.required" class="text-danger"
+        >New password is required.</label
+      >
+      <label *ngIf="confirmPass.errors.minlength" class="text-danger"
+        >New password must be at least 6 characters.</label
+      >
+      <label *ngIf="confirmPass.errors.pattern" class="text-danger"
+        >Password must contain atleast 1 upper case, 1 lower case, and a
+        number</label
+      >
+    </div>
+
+    <div class="text-center">
+      <input type="submit" value="Change Password" class="btn btn-primary" />
+    </div>
+  </form>
+</div>

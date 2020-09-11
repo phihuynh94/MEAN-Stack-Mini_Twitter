@@ -1,0 +1,52 @@
+<div class="border-bottom">
+  <h4 class="text-center border-bottom">Home</h4>
+
+  <div class="input-group">
+    <img
+      src="../../../assets/profile-icon.png"
+      alt="User Icon"
+      class="img-fluid"
+      style="width: 15%;"
+    />
+    <textarea
+      class="form-control border-0"
+      placeholder="What happening?"
+      [(ngModel)]="tweetService.tweet.tweet"
+      (keyup)="countChar(tweetService.tweet.tweet)"
+    ></textarea>
+  </div>
+
+  <div class="m-2">
+    <div class="btn-group">
+      <button class="btn btn-link">Add photo</button>
+      <button class="btn btn-link">Emotes</button>
+    </div>
+
+    <div class="float-right">
+      {{ tweetLength }} / 280
+      <button
+        class="btn btn-primary rounded-pill"
+        (click)="onTweet()"
+        [disabled]="!tweetService.tweet.tweet || tweetLength > 280"
+      >
+        Tweet
+      </button>
+    </div>
+  </div>
+
+  <div class="text-danger text-center" *ngIf="tweetLength > 280">
+    Tweet can't has more than 280 characters!
+  </div>
+</div>
+
+<div
+  class="bg-light p-4 border mt-2"
+  *ngFor="let tweet of tweetService.tweets; let i = index"
+  routerLink="/tweet/{{ tweet.id }}"
+>
+  <div class="row">
+    <div class="font-weight-bold col">{{ tweet.userFullName }}</div>
+    <div class="font-weight-light col">{{ postAt[i] }}</div>
+  </div>
+  <p>{{ tweet.tweet }}</p>
+</div>

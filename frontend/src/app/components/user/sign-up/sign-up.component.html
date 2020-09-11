@@ -1,0 +1,71 @@
+<div class="container">
+    <h1 class="text-center">Sign up</h1>
+
+    <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+        <div class="form-group">
+            <label>Full name:</label>
+            <input type="text" #fullName="ngModel" [(ngModel)]="userService.user.fullName" name="fullName" placeholder="Full Name" 
+            required class="form-control" [pattern]="fullNameRegex">
+            <div *ngIf="signUpForm.submitted && !fullName.valid">
+                <label *ngIf="fullName.errors.required" class="text-danger">Full name is required.</label>
+                <label *ngIf="fullName.errors.pattern" class="text-danger">Invalid full name.</label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" #username="ngModel" [(ngModel)]="userService.user.username" name="username" placeholder="Username" 
+            required class="form-control" [pattern]="usernameRegex">
+            <div *ngIf="signUpForm.submitted && !username.valid">
+                <label *ngIf="username.errors.required" class="text-danger">Username is required.</label>
+                <label *ngIf="username.errors.pattern" class="text-danger">Invalid username.</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" #email="ngModel" [(ngModel)]="userService.user.email" name="email" placeholder="Email"
+            required class="form-control" [pattern]="emailRegex">
+            <div *ngIf="signUpForm.submitted && !email.valid">
+                <label *ngIf="email.errors.required" class="text-danger">Email is required.</label>
+                <label *ngIf="email.errors.pattern" class="text-danger">Invalid email address.</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" #password="ngModel" [(ngModel)]="userService.user.password" name="password" placeholder="Password"
+            required class="form-control" minlength="6" [pattern]="passwordRegex">
+            <div *ngIf="signUpForm.submitted && !password.valid">
+                <label *ngIf="password.errors.required" class="text-danger">Password is required.</label>
+                <label *ngIf="password.errors.minlength" class="text-danger">Password must be at least 6 characters.</label>
+                <label *ngIf="password.errors.pattern" class="text-danger">Password must contain atleast 1 upper case, 1 lower case, and a number</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm password:</label>
+            <input type="password" #confirmPass="ngModel" [(ngModel)]="confirmPassword" name="confirmPass" placeholder="Confirm password"
+            required class="form-control" minlength="6">
+            <div *ngIf="signUpForm.submitted && !confirmPass.valid">
+                <label *ngIf="confirmPass.errors.required" class="text-danger">Confirm password is required.</label>
+                <label *ngIf="confirmPass.errors.minlength" class="text-danger">Confirm password must be at least 6 characters.</label>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Sign Up" class="btn btn-primary">
+        </div>
+    </form>
+
+    <div class="mt-2">
+        <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+        </div>
+        
+        <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>
+

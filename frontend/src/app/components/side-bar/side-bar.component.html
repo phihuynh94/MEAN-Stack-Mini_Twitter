@@ -1,0 +1,31 @@
+<div class="container">
+  <input
+    class="form-control bg-light rounded-pill"
+    type="text"
+    placeholder="Search"
+  />
+
+  <div class="rounded-lg bg-light mt-3">
+    <h4 class="font-weight-bold p-2 border-bottom">Trending</h4>
+    <div *ngFor="let hashtag of hashtags" class="m-2">
+      {{ hashtag.hashtag }} {{ hashtag.count }}
+    </div>
+  </div>
+
+  <div class="rounded-lg bg-light mt-3">
+    <h4 class="font-weight-bold p-2 border-bottom">Who to follow</h4>
+    <div *ngFor="let user of userService.users" class="border-bottom p-2">
+      <div class="row">
+        <span class="font-weight-bold col-sm-7">{{ user.fullName }}</span>
+        <button class="btn btn-outline-primary rounded-pill btn-sm col-sm-4">
+          Follow
+        </button>
+      </div>
+      <div class="row col-sm-6">@{{ user.username }}</div>
+    </div>
+  </div>
+
+  <footer class="mt-2">
+    <p>&copy; 2020 Mini Twitter, by Phi Huynh</p>
+  </footer>
+</div>
