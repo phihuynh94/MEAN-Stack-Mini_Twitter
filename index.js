@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(cors());
 app.use(passport.initialize());
 
+app.get("/", (req, res) => res.send("running"));
+
 // routes
 app.use("/user", require("./backend/controllers/user.controller"));
 app.use("/tweet", require("./backend/controllers/tweet.controller"));
@@ -30,12 +32,10 @@ app.use((err, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/dist/frontend"));
+  app.use(express.static("/dist/frontend"));
 
   app.get("*", (req, res) => {
-    res.sendFile(
-      path.join(__dirname, "frontend", "dist", "frontend", "index.html")
-    );
+    res.sendFile(path.join(__dirname, "dist", "frontend", "index.html"));
   });
 }
 
